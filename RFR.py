@@ -80,7 +80,7 @@ prop4 = copy.deepcopy(CT_m1_m2)
 prop5 = copy.deepcopy(E_form_X_rich)
 prop6 = copy.deepcopy(E_form_Pb_rich)
 n = dopant.size
-m = np.int(X.size/n)
+m = int(X.size/n)
 
 t = 0.20
 
@@ -92,17 +92,17 @@ n_te = CT1_test.size
 X_train_fl = [[0.0 for a in range(m)] for b in range(n_tr)]
 for i in range(0,n_tr):
     for j in range(0,m):
-        X_train_fl[i][j] = np.float(X_train[i][j])
+        X_train_fl[i][j] = float(X_train[i][j])
 
 X_test_fl = [[0.0 for a in range(m)] for b in range(n_te)]
 for i in range(0,n_te):
     for j in range(0,m):
-        X_test_fl[i][j] = np.float(X_test[i][j])
+        X_test_fl[i][j] = float(X_test[i][j])
 
 X_out_fl = [[0.0 for a in range(m)] for b in range(n_out)]
 for i in range(0,n_te):
     for j in range(0,m):
-        X_out_fl[i][j] = np.float(X_out[i][j])
+        X_out_fl[i][j] = float(X_out[i][j])
 
 
 Pred_out_fl  =  [[0.0 for a in range(6)] for b in range(n_out)]
@@ -110,7 +110,7 @@ err_up_out   =  [[0.0 for a in range(6)] for b in range(n_out)]
 err_down_out =  [[0.0 for a in range(6)] for b in range(n_out)]
 
 
-
+feature_importances = [[0.0 for a in range(6)] for b in range(19)]
 
 
 
@@ -135,7 +135,11 @@ param_grid = {
 "min_samples_split": [2, 5, 10]
 }
 
-#param_grid = { "n_estimators": [100]}
+param_grid = {
+"n_estimators": [100],
+"max_features": [15],
+"max_depth": [10]
+}
 
 
 
@@ -171,6 +175,8 @@ rfreg_opt.fit(X_train_fl,Prop_train_fl)
 Pred_train_fl = rfreg_opt.predict(X_train_fl)
 Pred_test_fl  = rfreg_opt.predict(X_test_fl)
 
+for i in range(0,m):
+    feature_importances[i][0] = rfreg_opt.best_estimator_.feature_importances_[i]
 
 Prop_train_CT1 = copy.deepcopy(Prop_train_fl)
 Pred_train_CT1 = copy.deepcopy(Pred_train_fl)
@@ -182,7 +188,7 @@ Pred_test_CT1  = copy.deepcopy(Pred_test_fl)
 
 Pred_out = rfreg_opt.predict(X_out_fl)
 for i in range(0,n_out):
-    Pred_out_fl[i][0] = np.float(Pred_out[i])
+    Pred_out_fl[i][0] = float(Pred_out[i])
 
 
 
@@ -219,6 +225,8 @@ rfreg_opt.fit(X_train_fl,Prop_train_fl)
 Pred_train_fl = rfreg_opt.predict(X_train_fl)
 Pred_test_fl  = rfreg_opt.predict(X_test_fl)
 
+for i in range(0,m):
+    feature_importances[i][1] = rfreg_opt.best_estimator_.feature_importances_[i]
 
 Prop_train_CT2 = copy.deepcopy(Prop_train_fl)
 Pred_train_CT2 = copy.deepcopy(Pred_train_fl)
@@ -230,7 +238,7 @@ Pred_test_CT2  = copy.deepcopy(Pred_test_fl)
 
 Pred_out = rfreg_opt.predict(X_out_fl)
 for i in range(0,n_out):
-    Pred_out_fl[i][1] = np.float(Pred_out[i])
+    Pred_out_fl[i][1] = float(Pred_out[i])
 
 
 
@@ -267,6 +275,8 @@ rfreg_opt.fit(X_train_fl,Prop_train_fl)
 Pred_train_fl = rfreg_opt.predict(X_train_fl)
 Pred_test_fl  = rfreg_opt.predict(X_test_fl)
 
+for i in range(0,m):
+    feature_importances[i][2] = rfreg_opt.best_estimator_.feature_importances_[i]
 
 Prop_train_CT3 = copy.deepcopy(Prop_train_fl)
 Pred_train_CT3 = copy.deepcopy(Pred_train_fl)
@@ -278,7 +288,7 @@ Pred_test_CT3  = copy.deepcopy(Pred_test_fl)
 
 Pred_out = rfreg_opt.predict(X_out_fl)
 for i in range(0,n_out):
-    Pred_out_fl[i][2] = np.float(Pred_out[i])
+    Pred_out_fl[i][2] = float(Pred_out[i])
 
 
 
@@ -313,6 +323,8 @@ rfreg_opt.fit(X_train_fl,Prop_train_fl)
 Pred_train_fl = rfreg_opt.predict(X_train_fl)
 Pred_test_fl  = rfreg_opt.predict(X_test_fl)
 
+for i in range(0,m):
+    feature_importances[i][3] = rfreg_opt.best_estimator_.feature_importances_[i]
 
 Prop_train_CT4 = copy.deepcopy(Prop_train_fl)
 Pred_train_CT4 = copy.deepcopy(Pred_train_fl)
@@ -324,7 +336,7 @@ Pred_test_CT4  = copy.deepcopy(Pred_test_fl)
 
 Pred_out = rfreg_opt.predict(X_out_fl)
 for i in range(0,n_out):
-    Pred_out_fl[i][3] = np.float(Pred_out[i])
+    Pred_out_fl[i][3] = float(Pred_out[i])
 
 
 
@@ -361,6 +373,8 @@ rfreg_opt.fit(X_train_fl,Prop_train_fl)
 Pred_train_fl = rfreg_opt.predict(X_train_fl)
 Pred_test_fl  = rfreg_opt.predict(X_test_fl)
 
+for i in range(0,m):
+    feature_importances[i][4] = rfreg_opt.best_estimator_.feature_importances_[i]
 
 Prop_train_form_X_rich = copy.deepcopy(Prop_train_fl)
 Pred_train_form_X_rich = copy.deepcopy(Pred_train_fl)
@@ -372,7 +386,7 @@ Pred_test_form_X_rich  = copy.deepcopy(Pred_test_fl)
 
 Pred_out = rfreg_opt.predict(X_out_fl)
 for i in range(0,n_out):
-    Pred_out_fl[i][4] = np.float(Pred_out[i])
+    Pred_out_fl[i][4] = float(Pred_out[i])
 
 
 
@@ -406,6 +420,8 @@ rfreg_opt.fit(X_train_fl,Prop_train_fl)
 Pred_train_fl = rfreg_opt.predict(X_train_fl)
 Pred_test_fl  = rfreg_opt.predict(X_test_fl)
 
+for i in range(0,m):
+    feature_importances[i][5] = rfreg_opt.best_estimator_.feature_importances_[i]
 
 Prop_train_form_Pb_rich = copy.deepcopy(Prop_train_fl)
 Pred_train_form_Pb_rich = copy.deepcopy(Pred_train_fl)
@@ -417,7 +433,7 @@ Pred_test_form_Pb_rich  = copy.deepcopy(Pred_test_fl)
 
 Pred_out = rfreg_opt.predict(X_out_fl)
 for i in range(0,n_out):
-    Pred_out_fl[i][5] = np.float(Pred_out[i])
+    Pred_out_fl[i][5] = float(Pred_out[i])
 
 
 
@@ -429,7 +445,7 @@ for i in range(0,n_out):
 
 np.savetxt('Pred_out.csv', Pred_out_fl)
 
-
+np.savetxt('feat_imp.txt', feature_importances)
 
 
 
